@@ -20,7 +20,7 @@ The IAM architecture contains groups representing different departments.
 
 Each group receives permissions based on their job responsibilities.
 
-![IAM Architecture](iam-architecture.png)
+![IAM Architecture](screenshots/iam-architecture.png)
 
 ---
 
@@ -88,6 +88,16 @@ Least privilege reduces the risk of accidental infrastructure changes.
 
 ---
 
+---
+
 ## Next Project
 
-Deploying a secure web server using **Amazon EC2**.
+The next step in the infrastructure build for **XYZ Media Solutions** is deploying a secure web server using Amazon EC2.
+
+This will include:
+
+- Launching an EC2 instance
+- Configuring security groups
+- Connecting via SSH
+- Installing a web server
+- Hosting a basic application
