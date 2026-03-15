@@ -2,15 +2,21 @@
 
 ## Project Overview
 
-This project demonstrates a secure AWS Identity and Access Management (IAM) architecture designed for a fictional company called **XYZ Media Solutions**.
+In this project, I built a secure **AWS Identity and Access Management (IAM)** setup for a fictional company called **XYZ Media Solutions**.
 
-The objective was to implement **Role-Based Access Control (RBAC)** and enforce the **principle of least privilege** across multiple teams.
+The goal was to implement **Role-Based Access Control (RBAC)** and apply the **principle of least privilege**, ensuring that each team only has access to the resources they actually need.
+
+This kind of structure is commonly used in real organizations where multiple teams work within the same AWS account but require controlled access to infrastructure.
 
 ---
 
 ## Architecture
 
-The IAM architecture contains groups representing different departments.
+The IAM structure is organized using **department-based groups**.
+
+Instead of assigning permissions to individual users, permissions are attached to groups. This makes access management easier and more scalable as the organization grows.
+
+The following groups were created:
 
 - Developers
 - Marketing
@@ -18,7 +24,7 @@ The IAM architecture contains groups representing different departments.
 - Finance
 - Support Team
 
-Each group receives permissions based on their job responsibilities.
+Each group receives permissions based on their responsibilities.
 
 ## AWS IAM Architecture Diagram
 
@@ -28,26 +34,35 @@ Each group receives permissions based on their job responsibilities.
 
 ## IAM Groups Created
 
-Developers  
-Marketing  
-Analysts  
-Finance  
-Support-Team
+The following IAM groups represent different teams in the organization:
 
-These groups simplify permission management across users.
+- Developers  
+- Marketing  
+- Analysts  
+- Finance  
+- Support Team  
+
+Using IAM groups allows permissions to be managed centrally instead of configuring access for each user individually.
 
 ---
 
 ## Policies Implemented
 
 ### Managed Policy
-Developers were granted:
 
+The **Developers group** was granted the AWS managed policy:
+
+```
 AmazonEC2FullAccess
+```
+
+This allows developers to launch and manage EC2 infrastructure required for application development.
+
+---
 
 ### Custom Inline Policy
 
-Support team was given limited EC2 visibility using:
+The **Support Team** was given limited EC2 visibility through a custom inline policy:
 
 ```
 ec2:DescribeInstances
@@ -55,51 +70,61 @@ ec2:DescribeVolumes
 ec2:DescribeSecurityGroups
 ```
 
-This allows infrastructure monitoring without modification.
+This allows the support team to **view infrastructure details without the ability to modify or launch resources**.
 
 ---
 
 ## Security Configurations
 
-• Multi-Factor Authentication (MFA) enabled  
-• Strong password policy enforced  
-• IAM Policy Simulator used for permission validation  
-• AWS CloudTrail enabled for auditing  
+Additional security controls were implemented to improve account security:
+
+- Multi-Factor Authentication (MFA) enabled for IAM users  
+- Strong IAM password policy configured  
+- IAM Policy Simulator used to verify permissions  
+- AWS CloudTrail enabled for auditing and monitoring activity  
+
+These configurations help strengthen security and provide better visibility into account activity.
 
 ---
 
 ## Access Testing
 
-Testing confirmed the correct implementation of least privilege.
+After configuring the IAM structure, access was tested using different IAM users to confirm that the **least privilege model** was working correctly.
 
-Developers → able to launch EC2 instances  
+Results of the tests:
 
-Marketing → denied when attempting to create S3 buckets  
+**Developers**  
+✔ Able to launch EC2 instances  
 
-Support Team → able to view EC2 resources but unable to launch instances  
+**Marketing**  
+❌ Denied when attempting to create S3 buckets  
+
+**Support Team**  
+✔ Able to view EC2 resources  
+❌ Unable to launch EC2 instances  
+
+These tests confirmed that permissions were correctly restricted based on each team's role.
 
 ---
 
 ## Lessons Learned
 
-Implementing IAM groups simplifies permission management.
+Some key takeaways from this project:
 
-Testing permissions with IAM Policy Simulator helps prevent security mistakes.
-
-Least privilege reduces the risk of accidental infrastructure changes.
-
----
+- IAM groups make permission management easier when working with multiple teams.
+- Testing policies with the **IAM Policy Simulator** helps prevent permission mistakes.
+- Following the **principle of least privilege** reduces the risk of accidental infrastructure changes.
 
 ---
 
 ## Next Project
 
-The next step in the infrastructure build for **XYZ Media Solutions** is deploying a secure web server using Amazon EC2.
+The next step for the **XYZ Media Solutions infrastructure** is deploying a secure web server using **Amazon EC2**.
 
-This will include:
+This project will include:
 
 - Launching an EC2 instance
 - Configuring security groups
-- Connecting via SSH
-- Installing a web server
-- Hosting a basic application
+- Connecting to the server using SSH
+- Installing and configuring a web server
+- Hosting a simple web application
