@@ -20,7 +20,53 @@ The IAM architecture contains groups representing different departments.
 
 Each group receives permissions based on their job responsibilities.
 
-![IAM Architecture](screenshots/iam-architecture.png)
+## AWS IAM Architecture Diagram
+
+```mermaid
+flowchart TB
+
+A[AWS Account\nXYZ Media Solutions]
+
+A --> B[IAM Groups]
+
+B --> C[Developers Group]
+B --> D[Marketing Group]
+B --> E[Analysts Group]
+B --> F[Finance Group]
+B --> G[Support-Team Group]
+
+C --> C1[AmazonEC2FullAccess Policy]
+D --> D1[S3 Restricted Access]
+E --> E1[CloudWatch ReadOnly Access]
+F --> F1[Billing ReadOnly Access]
+G --> G1[Custom EC2 View Policy\nEC2ViewOnlyCustomPolicy]
+
+C --> U1[dev-user1]
+C --> U2[dev-user2]
+
+D --> U3[marketing-user1]
+
+E --> U4[analyst-user1]
+
+F --> U5[finance-user1]
+
+G --> U6[support-user1]
+
+U1 --> EC2[Amazon EC2]
+U2 --> EC2
+
+U3 --> S3[Amazon S3]
+
+U4 --> CW[Amazon CloudWatch]
+
+U6 --> EC2VIEW[EC2 View Only]
+
+A --> CT[AWS CloudTrail Logging]
+
+A --> MFA[Multi-Factor Authentication]
+
+A --> PW[Password Policy Enforcement]
+```
 
 ---
 
