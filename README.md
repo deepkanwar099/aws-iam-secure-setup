@@ -22,7 +22,7 @@ Each group receives permissions based on their job responsibilities.
 
 ## AWS IAM Architecture Diagram
 
-![IAM Architecture](images/iam-architecture.png)
+![IAM Architecture](images/Diagram.png)
 
 ---
 
